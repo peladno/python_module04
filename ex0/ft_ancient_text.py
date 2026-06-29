@@ -12,10 +12,10 @@ def ft_ancient_text():
 
     file_name = args[0]
     f: TextIO | None = None
-    
+
     try:
         print(f"Accessing file '{file_name}'")
-        f: TextIO = open(file_name, "r", encoding="utf-8")
+        f = open(file_name, "r", encoding="utf-8")
         data = f.read()
         print("---\n")
         print(data)
