@@ -2,7 +2,7 @@ import sys
 from typing import TextIO
 
 
-def ft_ancient_text():
+def ft_ancient_text() -> None:
     path, *args = sys.argv
 
     if not args:
