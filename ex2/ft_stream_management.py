@@ -49,9 +49,10 @@ def ft_archive_creation() -> None:
         print(data)
         print("\n---")
         print(f"File '{file_name}' closed.\n")
+
         lines = data.splitlines()
     except OSError as e:
-        print(f"Error opening file '{file_name}': {e}")
+        print(f"Error opening file '{file_name}': {e}", file=sys.stderr)
         return
 
     print("Transform data:")
@@ -61,15 +62,19 @@ def ft_archive_creation() -> None:
         print(f"{n}")
     print("\n---")
 
-    new_file_to_save = input("Enter new file name (or empty):").strip()
-    if new_file_to_save == "":
-        print("Not saving data.")
-        return
+    print("Enter new file name (or empty):", end="")
+    sys.stdout.flush()
+    line_input = sys.stdin.readline()
+    if line_input == "":
+        new_file_to_save = ""
+    else:
+        new_file_to_save = line_input.rstrip("\n")
+
     try:
         print(f"Saving data to '{new_file_to_save}'")
         write_file(new_file_to_save, new_lines)
     except OSError as e:
-        print(f"Error opening file '{new_file_to_save}': {e}")
+        print(f"Error opening file '{new_file_to_save}': {e}", file=sys.stderr)
         print("Data not saved.")
         return
 
