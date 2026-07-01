@@ -34,7 +34,7 @@ def ft_archive_creation() -> None:
     if not args:
         print(f"Usage: {path} <file>")
         return
-    print("=== Cyber Archives Recovery ===")
+    print("=== Cyber Archives Recovery & Preservation ===")
 
     file_name = args[0]
 
