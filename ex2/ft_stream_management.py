@@ -22,7 +22,6 @@ def write_file(new_file_to_save: str, new_lines: list[str]) -> None:
     finally:
         if f is not None:
             f.close()
-            print(f"Data saved in file '{new_file_to_save}'.")
 
 
 def transform_lines(lines: list[str]) -> list[str]:
@@ -62,17 +61,19 @@ def ft_archive_creation() -> None:
         print(f"{n}")
     print("\n---")
 
-    print("Enter new file name (or empty):", end="")
+    print("Enter new file name (or empty): ", end="")
     sys.stdout.flush()
-    line_input = sys.stdin.readline()
+    line_input = sys.stdin.readline().rstrip("\n")
     if line_input == "":
-        new_file_to_save = ""
+        print("Not saving data.")
+        return
     else:
-        new_file_to_save = line_input.rstrip("\n")
+        new_file_to_save = line_input
 
     try:
         print(f"Saving data to '{new_file_to_save}'")
         write_file(new_file_to_save, new_lines)
+        print(f"Data saved in file '{new_file_to_save}'.")
     except OSError as e:
         print(f"Error opening file '{new_file_to_save}': {e}", file=sys.stderr)
         print("Data not saved.")
