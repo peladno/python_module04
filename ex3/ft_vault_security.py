@@ -12,8 +12,7 @@ def secure_archive(
                 data = file.read()
                 return (True, data)
         else:
-            print("That action doesn't exist, please choice between "
-                  "read or write")
+            (False, "Invalid action")
     except OSError as error:
         return (False, str(error))
 
