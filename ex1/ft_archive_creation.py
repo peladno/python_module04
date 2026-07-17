@@ -1,5 +1,5 @@
 import sys
-from typing import List, Optional, TextIO
+from typing import List, TextIO
 
 
 def read_file(file_name: str) -> str:
