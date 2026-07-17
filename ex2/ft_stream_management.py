@@ -1,9 +1,9 @@
 import sys
-from typing import List, Optional, TextIO
+from typing import List, TextIO
 
 
 def read_file(file_name: str) -> str:
-    f: Optional[TextIO] = None
+    f: TextIO | None = None
     try:
         f = open(file_name, "r", encoding="utf-8")
         data = f.read()
@@ -18,7 +18,7 @@ def read_file(file_name: str) -> str:
 
 
 def write_file(new_file_to_save: str, new_lines: List[str]) -> None:
-    f: Optional[TextIO] = None
+    f: TextIO | None = None
     try:
         f = open(new_file_to_save, "w", encoding="utf-8")
         for n in new_lines:
