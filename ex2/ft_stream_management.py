@@ -1,67 +1,73 @@
 import sys
-from typing import TextIO
+from typing import List, Optional, TextIO
 
 
 def read_file(file_name: str) -> str:
-    f: TextIO | None = None
+    f: Optional[TextIO] = None
     try:
         f = open(file_name, "r", encoding="utf-8")
         data = f.read()
         return data
     finally:
         if f is not None:
-            f.close()
+            try:
+                f.close()
+                print(f"File '{file_name}' closed.\n")
+            except Exception:
+                pass
 
 
-def write_file(new_file_to_save: str, new_lines: list[str]) -> None:
-    f: TextIO | None = None
+def write_file(new_file_to_save: str, new_lines: List[str]) -> None:
+    f: Optional[TextIO] = None
     try:
         f = open(new_file_to_save, "w", encoding="utf-8")
         for n in new_lines:
-            f.write(n + '\n')
+            f.write(n + "\n")
     finally:
         if f is not None:
-            f.close()
+            try:
+                f.close()
+                print(f"File '{new_file_to_save}' closed.\n")
+            except Exception:
+                pass
 
 
-def transform_lines(lines: list[str]) -> list[str]:
-    return [line + '#' for line in lines]
+def transform_lines(lines: List[str]) -> List[str]:
+    return [line + "#" for line in lines]
+
+
+def print_data(data: str, suffix: str = "") -> None:
+    print("---\n")
+    for index, line in enumerate(data.splitlines(), start=1):
+        print(f"[FRAGMENT {index:03d}] {line}{suffix}")
+    print("\n---")
 
 
 def ft_archive_creation() -> None:
-    path, *args = sys.argv
-
-    if not args:
-        print(f"Usage: {path} <file>")
+    if len(sys.argv) < 2:
+        print(f"Usage: {sys.argv[0]} <file>")
         return
-    print("=== Cyber Archives Recovery & Preservation ===")
 
-    file_name = args[0]
-
-    new_lines: list[str] = []
-    lines: list[str] = []
+    file_name = sys.argv[1]
+    print("=== Cyber Archives Recovery ===")
 
     try:
         print(f"Accessing file '{file_name}'")
         data = read_file(file_name)
-        print("---\n")
-        print(data)
-        print("\n---")
-        print(f"File '{file_name}' closed.\n")
-
-        lines = data.splitlines()
     except OSError as e:
-        print(f"Error opening file '{file_name}': {e}", file=sys.stderr)
+        print(f"Error opening file '{file_name}': {e}")
         return
 
-    print("Transform data:")
-    new_lines = transform_lines(lines)
-    print("---\n")
-    for n in new_lines:
-        print(f"{n}")
-    print("\n---")
+    print("Original data:")
+    print_data(data)
 
-    print("Enter new file name (or empty): ", end="")
+    lines = data.splitlines()
+    new_lines = transform_lines(lines)
+
+    print("Transformed data preview:")
+    print_data("\n".join(new_lines))
+
+    print("Enter new file name (or empty):", end="")
     sys.stdout.flush()
     line_input = sys.stdin.readline().rstrip("\n")
     if line_input == "":

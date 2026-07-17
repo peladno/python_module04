@@ -12,7 +12,7 @@ def secure_archive(
                 data = file.read()
                 return (True, data)
         else:
-            (False, "Invalid action")
+            return (False, "Invalid action")
     except OSError as error:
         return (False, str(error))
 

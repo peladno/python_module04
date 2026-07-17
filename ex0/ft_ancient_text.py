@@ -2,6 +2,13 @@ import sys
 from typing import TextIO
 
 
+def print_data(data: str, suffix: str = "") -> None:
+    print("---\n")
+    for index, line in enumerate(data.splitlines(), start=1):
+        print(f"[FRAGMENT {index:03d}] {line}{suffix}")
+    print("\n---")
+
+
 def ft_ancient_text() -> None:
     path, *args = sys.argv
 
@@ -17,9 +24,7 @@ def ft_ancient_text() -> None:
         print(f"Accessing file '{file_name}'")
         f = open(file_name, "r", encoding="utf-8")
         data = f.read()
-        print("---\n")
-        print(data)
-        print("\n---")
+        print_data(data)
     except OSError as e:
         print(f"Error opening file '{file_name}': {e}")
     finally:
