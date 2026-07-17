@@ -49,7 +49,7 @@ def ft_archive_creation() -> None:
         return
 
     file_name = sys.argv[1]
-    print("=== Cyber Archives Recovery ===")
+    print("=== Cyber Archives Recovery & Preservation ===")
 
     try:
         print(f"Accessing file '{file_name}'")
